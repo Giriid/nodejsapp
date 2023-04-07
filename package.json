@@ -1,0 +1,15 @@
+{
+  "name": "nodejsapp",
+  "version": "0.0.1",
+  "description": "Web app which provides CRUD operations for a help desk ticketing system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "Adam Graves",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
