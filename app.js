@@ -36,8 +36,12 @@ app.get('/list', (req, res) => {
     res.json(ticketList);
 });
 
+app.get('/support-tickets/:id', (req, res) => {
+    res.json(ticketList.req.params.id);
+});
+
 /** Post request */
-app.post('/post/ticket', function(req, res) {
+app.post('/post/tickets', function(req, res) {
     const type = req.body.type;
     const subject = req.body.subject;
     const description = req.body.description;
@@ -53,7 +57,7 @@ app.post('/post/ticket', function(req, res) {
     
     res.send({
         'id': ticketId,
-        'created_at': get(timeStamp),
+        'created_at': '2023-04-07',
         'updated_at': '',
         'type': type,
         'subject': subject,
