@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+
+<script>
+function verify(){
+var $data=document.fname.type.value +'/'+ document.fname.subject.value +'/'+ document.fname.description.value +'/'+ document.fname.priority.value +'/'+ document.fname.status.value +'/'+ document.fname.recipient.value +'/'+ document.fname.submitter.value +'/'+ document.fname.assignee.value +'/'+ document.fname.followids.value +'/'+ document.fname.tags.value;
+
+document.fname.action='http://localhost:5000/rest/create/' + $data;
+alert("Send " + document.fname.action);
+return true;
+}
+
+
+function prepare(){
+var $data=document.fname.type.value +'/'+ document.fname.subject.value +'/'+ document.fname.description.value +'/'+ document.fname.priority.value +'/'+ document.fname.status.value +'/'+ document.fname.recipient.value +'/'+ document.fname.submitter.value +'/'+ document.fname.assignee.value +'/'+ document.fname.followids.value +'/'+ document.fname.tags.value;
+
+document.getElementById("link").href='http://localhost:5000/rest/create/' + $data;
+}
+</script>
+
+<body style="background-color: rgb(255,255,255); background-image: none; margin: 0px;">
+ 
+<p align=center><b>Simple form for sending a "create" record to node.js</b>
+<br><br>
+<br><br>Method 1: Make a link with the appropriate URL:<br><br>
+<a id="link" href="xx"><button onMouseOver="prepare()">Click me</button></a>
+<br><hr><p align=center>Method 2: use method="GET" in a form:<br><br>
+<table border="0" cellspacing="0" cellpadding="0" width="481">
+  <tr valign="top" align="center">
+   <td>
+    <form name="fname" action="" method="GET" onSubmit="return verify()">
+      Type: <input name="type" value=""><br>
+      subject: <input name="subject" value=""><br>
+      description: <input name="description" value=""><br>
+      priority: <input name="priority" value=""><br>
+      status: <input name="status" value=""><br>
+      recipient: <input name="recipient" value=""><br>
+      Submitter: <input name="submitter" value=""><br>
+      assignee: <input name="assignee" value=""><br>
+      follow-ids: <input name="followids" value=""><br>
+      tags: <input name="tags" value=""><br><br>
+      <input type="submit" name="FormsButton1" value="Send">
+    </form>
+   </td>
+  </tr>
+ </table>
+</body>
+</html>
