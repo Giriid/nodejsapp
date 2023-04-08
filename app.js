@@ -1,49 +1,69 @@
-var express = require('express');
+const express = require('express');
+const bParse = require('body-parser');
+const app = express();
+const port = 3000;
+const ticketId = 1000;
+const assigneeId = 100000;
+const followerId = 1;
+
 var fs = require('fs');
-var parser = require('body-parser');
-var app = express();
-var router = express.Router();
+const { timeStamp } = require('console');
 var ticketList;
-port = 3000;
 
-app.use(parser.json());
+app.listen(port);
+console.log('Server start at http://localhost' + port);
 
-fs.readFile('./testTicket.json', 'utf-8', (err, data) => {
-    if (err) {
-        console.log('Error in readfile: ', err);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/** Read file */
+fs.readFile('./support-tickets.json', 'utf-8', (error, data) => {
+    if (error) {
+        console.log(error);
     } else {
         ticketList = JSON.parse(data);
     }
 });
 
-router.get('/', function(req, res) {
-    console.log('Start page!');
+/** Routes */
+app.get('/', function(req, res) {
+    const myquery = req.query;
+    var outstring = 'Starting...';
+    res.send(outstring);
 });
 
-router.get('/list', (req, res) => {
+app.get('/list', (req, res) => {
     res.json(ticketList);
 });
 
-router.get('/ticket/:id', (req, res) => {
-    res.json(ticketList.req.params.d);
-});
+/** Post request */
+app.post('/post/ticket', function(req, res) {
+    const type = req.body.type;
+    const subject = req.body.subject;
+    const description = req.body.description;
+    const priority = req.body.priority;
+    const submitter = req.body.submitter;
+    const tags = req.body.tags;
 
-router.post('/new-tickets', (req, res) => {
-    var body = req.body;
-    var id = 0;
-    for (var i in ticketList) {
-        id++;
-    }
-    body.id = id;
+    ticketId++;
+    assigneeId++;
+    followerId++;
+
     ticketList.id = body;
-    res.status(201).json(ticketList.id);
+    
+    res.send({
+        'id': ticketId,
+        'created_at': get(timeStamp),
+        'updated_at': '',
+        'type': type,
+        'subject': subject,
+        'description': description,
+        'priority': priority,
+        'status': 'open',
+        'recipient': 'support_example@domain.com',
+        'submitter': submitter,
+        'assignee_id': assigneeId,
+        'follower_ids': [assigneeId, followerId],
+        'tags': [tags]
+    });
 });
-
-app.use(router);
-app.listen(port, function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('Server started at http://localhost:', port)
-    }
-})

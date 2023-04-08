@@ -1,6 +1,5 @@
 {
-    "0": {
-    "id": 1379,
+    "id": 1000,
     "created_at": "2023-02-13T18:32:48Z",
     "updated_at": "2023-02-14T11:05:13Z",
     "type": "incident",
@@ -10,8 +9,7 @@
     "status": "open",
     "recipient": "support_example@domain.com",
     "submitter": "sender_example@betterdomain.com",
-    "assignee_id": 467821,
-    "follower_ids": [467821, 382],
+    "assignee_id": 100000,
+    "follower_ids": [100000, 1],
     "tags": ["enterprise", "printers"]
-    }
 }
