@@ -34,38 +34,39 @@ fs.readFile('./tickets.json', 'utf-8', (error, data) => {
 });
 
 function getDateAndTime()
-    {
-        var dateTime = currDate.getFullYear() + '-'
-        + (currDate.getMonth() + 1) + '-'
-        + currDate.getDate() + 'T'
-        + currDate.getHours() + ':'
-        + currDate.getMinutes() + ':'
-        + currDate.getSeconds() + 'Z';
+{
+    var dateTime = currDate.getFullYear() + '-'
+    + (currDate.getMonth() + 1) + '-'
+    + currDate.getDate() + 'T'
+    + currDate.getHours() + ':'
+    + currDate.getMinutes() + ':'
+    + currDate.getSeconds() + 'Z';
 
-        return (dateTime);
+    return (dateTime);
+}
+
+/** Routes */
+app.get('/', function(req, res)
+{
+    const myquery = req.query;
+    var outstring = 'Starting...';
+    res.send(outstring);
+});
+
+app.get('/list', (req, res) => {
+    res.json(ticketList);
+});
+
+app.get('/tickets/:id', (req, res) => {
+    const ticket_id = req.params.id;
+    const ticket = ticketList.find(ticket => ticket.id === ticket_id);
+
+    if (ticket) {
+        res.json(ticket);
+    } else {
+        res.status(404).json({ error: 'Ticket not found!' });
     }
-
-    /** Routes */
-    app.get('/', function(req, res) {
-        const myquery = req.query;
-        var outstring = 'Starting...';
-        res.send(outstring);
-    });
-
-    app.get('/list', (req, res) => {
-        res.json(ticketList);
-    });
-
-    app.get('/tickets/:id', (req, res) => {
-        const ticket_id = req.params.id;
-        const ticket = ticketList.find(ticket => ticket.id === ticket_id);
-
-        if (ticket) {
-            res.json(ticket);
-        } else {
-            res.status(404).json({ error: 'Ticket not found!' });
-        }
-    });
+});
 
 /** Post request */
 app.post('/tickets', function(req, res) {
